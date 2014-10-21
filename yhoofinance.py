@@ -773,41 +773,23 @@ def get_short_ratio(symbol):
 
 
 def get_historical_prices(symbol, start_date, end_date):
-
     """
-
     Get historical prices for the given ticker symbol.
-
     Date format is 'YYYY-MM-DD'
-
-
-
     Returns a nested dictionary (dict of dicts).
-
     outer dict keys are dates ('YYYY-MM-DD')
-
     """
 
     params = urlencode({
-
         's': symbol,
-
         'a': int(start_date[5:7]) - 1,
-
         'b': int(start_date[8:10]),
-
         'c': int(start_date[0:4]),
-
         'd': int(end_date[5:7]) - 1,
-
         'e': int(end_date[8:10]),
-
         'f': int(end_date[0:4]),
-
         'g': 'd',
-
         'ignore': '.csv',
-
     })
 
     url = 'http://ichart.yahoo.com/table.csv?%s' % params
