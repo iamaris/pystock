@@ -9,8 +9,8 @@ from pandas.tseries.offsets import BDay
 #today = pd.datetime.today() 
 import time
 #time.sleep(5) # delays for 5 seconds
-#today = pd.datetime.today() 
-today = pd.datetime.today() - BDay(1) 
+today = pd.datetime.today() 
+#today = pd.datetime.today() - BDay(1) 
 yesterday = today - BDay(1)
 #print today
 #print yesterday 
@@ -26,24 +26,17 @@ for line in tmp:
     if cleanedLine:
         nyse.append(cleanedLine)
 #print nyse
+#nyse.remove("TOM")
 
 for stock in nyse:
-    #print stock
-    if stock == "NUS":
-        continue
-    price = web.DataReader(stock, "google", yesterday,today)
-    #price = web.DataReader(stock, "yahoo", yesterday,today)
-    #print price.head()
-    #print price.at[price.index[0],'High']
-    #print price.at[price.index[0],'Low']
-    #print price.at[price.index[1],'High']
-    #print price.at[price.index[1],'Low']
-    if len(price.index)==2:
-        if price.at[price.index[0],'High'] >  price.at[price.index[1],'High']:
-            if price.at[price.index[0],'Low'] <  price.at[price.index[1],'Low']:
-                print stock, price.at[price.index[1],'High'], price.at[price.index[1],'Low'],(price.at[price.index[1],'High']-price.at[price.index[1],'Low'])
-    #time.sleep(10) # delays for 5 seconds
-
+    try:
+        price = web.DataReader(stock, "google", yesterday,today)
+        if len(price.index)==2:
+            if price.at[price.index[0],'High'] >  price.at[price.index[1],'High']:
+                if price.at[price.index[0],'Low'] <  price.at[price.index[1],'Low']:
+                    print stock, price.at[price.index[1],'High'], price.at[price.index[1],'Low'],(price.at[price.index[1],'High']-price.at[price.index[1],'Low'])
+    except:
+	pass
 
 
 
